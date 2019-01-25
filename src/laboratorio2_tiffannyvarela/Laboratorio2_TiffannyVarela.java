@@ -263,7 +263,7 @@ public class Laboratorio2_TiffannyVarela {
 
                             case 2:
                                 int posicion,
-                                 modificar;
+                                 modificar, cont_cons=0, cont_dem=0;
                                 System.out.println("Ingrese la posicion de la casa que desea modificas su manejo");
                                 posicion = r.nextInt();
                                 while (posicion < 0 || posicion > lista.size()) {
@@ -271,32 +271,51 @@ public class Laboratorio2_TiffannyVarela {
                                     System.out.println("Ingrese la posicion de la casa que desea modificas su manejo");
                                     posicion = r.nextInt();
                                 }
-                                if (((Casas) lista.get(posicion)).getEstado().equals("Lista")) {
-                                    System.out.println("Ingrese 1.Cambiar a Espera de demolicion, 2.No modificar");
-                                    modificar = r.nextInt();
-                                    if (modificar == 1) {
-                                        ((Casas) lista.get(posicion)).setEstado("Espera de demolicion");
+
+                                for (int i = 0; i < lista.size(); i++) {
+                                    if (((Casas) lista.get(i)).getEstado().equals("Construccion")) {
+                                        cont_cons++;
                                     }
                                 }
-                                if (((Casas) lista.get(posicion)).getEstado().equals("Construccion en espera")) {
+                                
+                                for (int i = 0; i < lista.size(); i++) {
+                                    if (((Casas) lista.get(i)).getEstado().equals("Espera de demolicion")) {
+                                        cont_dem++;
+                                    }
+                                }
+                                
+                                if (cont_cons>5){
+                                    if (((Casas) lista.get(posicion)).getEstado().equals("Construccion en espera")) {
                                     System.out.println("Ingrese 1.Construccion, 2.No modificar");
                                     modificar = r.nextInt();
                                     if (modificar == 1) {
                                         ((Casas) lista.get(posicion)).setEstado("Construccion");
                                     }
                                 }
+                                }
+                                
+                                if (cont_dem>3){
+                                    if (((Casas) lista.get(posicion)).getEstado().equals("Lista")) {
+                                    System.out.println("Ingrese 1.Cambiar a Espera de demolicion, 2.No modificar");
+                                    modificar = r.nextInt();
+                                    if (modificar == 1) {
+                                        ((Casas) lista.get(posicion)).setEstado("Espera de demolicion");
+                                    }
+                                }
+                                }
+                                
                                 if (((Casas) lista.get(posicion)).getEstado().equals("Construccion")) {
                                     System.out.println("Ingrese 1.Construccion en espera, 2.Lista, 3.No modificar");
                                     modificar = r.nextInt();
                                     if (modificar == 1) {
-                                        ((Casas) lista.get(posicion)).setEstado("Constuccion en espera");
+                                        ((Casas) lista.get(posicion)).setEstado("Construccion en espera");
                                     }
 
                                     if (modificar == 2) {
                                         ((Casas) lista.get(posicion)).setEstado("Lista");
                                     }
                                 }
-                                if (((Casas) lista.get(posicion)).getEstado().equals("Espera de demolocion")) {
+                                if (((Casas) lista.get(posicion)).getEstado().equals("Espera de demolicion")) {
                                     System.out.println("Ingrese 1.Demoler 2.No modificar");
                                     modificar = r.nextInt();
                                     if (modificar == 1) {
@@ -343,9 +362,4 @@ public class Laboratorio2_TiffannyVarela {
             return false;
         }
     }
-
-    /*public static boolean validaNumeroEnteroPositivo_Exp(String texto){
-     
-    return texto.matches("^[0-9]+$");
-}*/
 }
